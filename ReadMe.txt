@@ -26,3 +26,5 @@ public void onStringNotification(StringNotificationEventArgs args) {
 and to publish an event
 
 _eventAggregator.GetEvent<StringNotificationEvent>().Publish(new StringNotificationEventArgs("Hello world!"));
+
+You can create any event type by inheriting from PubSubEvent - StringNotificationEvent is just an example
