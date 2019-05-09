@@ -8,3 +8,21 @@ This version does not support the thread options from the original, all events w
 on the thread from which they were published. This 'may' cause issues if the event is published 
 from within the physics process ? - i don't quite understand the internals of Godot enough yet to
 determine if this is an issue.
+
+Add the node under your 'Root'
+and use it like...
+
+private EventAggregator _eventAggregator;
+
+public override void _Ready() {
+  _eventAggregator = (EventAggregator) GetTree().GetRoot().GetNode("Root/EventAggregator");
+  _eventAggregator.GetEvent<StringNotificationEvent>().Subscribe(onStringNotification);
+}
+  
+public void onStringNotification(StringNotificationEventArgs args) {
+  GD.Print($"IT FECKIN WORKS: {args.Notification}");
+}
+
+and to publish an event
+
+_eventAggregator.GetEvent<StringNotificationEvent>().Publish(new StringNotificationEventArgs("Hello world!"));
